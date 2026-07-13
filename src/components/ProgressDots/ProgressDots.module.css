@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #303030;
+  transition:
+    transform var(--transition-normal),
+    background var(--transition-normal);
+}
+
+.active {
+  background: var(--color-text);
+}
+
+.container:hover .active {
+  transform: scale(1.12);
+}

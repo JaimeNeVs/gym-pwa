@@ -1,0 +1,356 @@
+.page {
+  width: 100%;
+  min-height: calc(100vh - 76px);
+
+  display: flex;
+  flex-direction: column;
+
+  animation: pageEnter 260ms ease;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.backButton {
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.backButton:active {
+  transform: scale(0.94);
+}
+
+.headerContent {
+  min-width: 0;
+  flex: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.eyebrow {
+  overflow: hidden;
+
+  color: var(--color-text-muted);
+
+  font-size: 0.69rem;
+  font-weight: 800;
+
+  letter-spacing: 0.13em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.exercisePosition {
+  flex-shrink: 0;
+
+  color: var(--color-text-muted);
+
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.content {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 52px 0 42px;
+}
+
+.exerciseHeader {
+  margin-bottom: 36px;
+  text-align: center;
+}
+
+.exerciseLabel {
+  margin-bottom: 12px;
+
+  color: var(--color-text-muted);
+
+  font-size: 0.68rem;
+  font-weight: 800;
+
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.exerciseName {
+  max-width: 440px;
+  margin: 0 auto;
+
+  color: var(--color-text);
+
+  font-size: clamp(2rem, 10vw, 3.5rem);
+  font-weight: 800;
+
+  line-height: 1.02;
+  letter-spacing: -0.065em;
+}
+
+.setText {
+  margin-top: 16px;
+
+  color: var(--color-text-muted);
+
+  font-size: 0.76rem;
+  font-weight: 700;
+
+  text-align: center;
+}
+
+.values {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+
+  margin-top: 42px;
+}
+
+.valueBlock {
+  min-width: 0;
+}
+
+.valueLabel {
+  display: block;
+  margin-bottom: 10px;
+
+  color: var(--color-text-muted);
+
+  font-size: 0.67rem;
+  font-weight: 800;
+
+  letter-spacing: 0.1em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.valueControl {
+  min-height: 122px;
+  padding: 12px;
+
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  align-items: center;
+  gap: 6px;
+
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-large);
+
+  background: var(--color-surface);
+}
+
+.valueControl button {
+  width: 44px;
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: var(--color-surface-soft);
+  color: var(--color-text-muted);
+
+  transition:
+    transform var(--transition-fast),
+    background var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.valueControl button:hover {
+  background: var(--color-surface-hover);
+  color: var(--color-text);
+}
+
+.valueControl button:active {
+  transform: scale(0.9);
+}
+
+.value {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.value strong {
+  color: var(--color-text);
+
+  font-size: clamp(2rem, 9vw, 2.8rem);
+  font-weight: 800;
+
+  line-height: 1;
+  letter-spacing: -0.06em;
+}
+
+.value span {
+  margin-top: 7px;
+
+  color: var(--color-text-muted);
+
+  font-size: 0.69rem;
+  font-weight: 700;
+}
+
+.prBadge {
+  width: fit-content;
+  min-height: 36px;
+  margin: 24px auto 0;
+  padding: 0 13px;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  border: 1px solid rgba(226, 187, 103, 0.28);
+  border-radius: var(--radius-round);
+
+  background: var(--color-gold-soft);
+  color: var(--color-gold);
+
+  font-size: 0.75rem;
+  font-weight: 800;
+
+  animation: prEnter 220ms ease;
+}
+
+.reference {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.reference span {
+  display: block;
+
+  color: var(--color-text-muted);
+
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.reference strong {
+  display: block;
+  margin-top: 6px;
+
+  color: var(--color-text-soft);
+
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+
+  padding-bottom: max(10px, env(safe-area-inset-bottom));
+}
+
+.finishButton,
+.skipButton {
+  width: 100%;
+  min-height: 60px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  border-radius: var(--radius-medium);
+
+  font-size: 0.87rem;
+  font-weight: 800;
+
+  transition:
+    transform var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.finishButton {
+  background: var(--color-text);
+  color: var(--color-background);
+}
+
+.skipButton {
+  background: transparent;
+  color: var(--color-text-muted);
+}
+
+.finishButton:active,
+.skipButton:active {
+  transform: scale(0.985);
+}
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes prEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 480px) {
+  .page {
+    min-height: calc(100vh - 68px);
+  }
+
+  .content {
+    padding: 38px 0 30px;
+  }
+
+  .values {
+    grid-template-columns: 1fr;
+    gap: 18px;
+
+    margin-top: 34px;
+  }
+
+  .valueControl {
+    min-height: 94px;
+  }
+
+  .restingContent {
+  padding-top: 38px;
+  padding-bottom: 30px;
+}
+
+}

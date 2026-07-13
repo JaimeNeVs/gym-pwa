@@ -1,0 +1,105 @@
+.page {
+  width: 100%;
+  animation: pageEnter 260ms ease;
+}
+
+.header {
+  margin-bottom: 30px;
+}
+
+.eyebrow {
+  margin-bottom: 9px;
+  color: var(--color-text-muted);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.title {
+  color: var(--color-text);
+  font-size: clamp(2rem, 9vw, 2.7rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.06em;
+}
+
+.subtitle {
+  max-width: 340px;
+  margin-top: 13px;
+  color: var(--color-text-muted);
+  font-size: 0.87rem;
+  line-height: 1.55;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+}
+
+.createButton {
+  width: 100%;
+  min-height: 66px;
+  margin-top: 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  border: 1px dashed rgba(134, 213, 156, 0.42);
+  border-radius: var(--radius-large);
+
+  background: transparent;
+  color: var(--color-green);
+
+  font-size: 0.88rem;
+  font-weight: 800;
+
+  transition:
+    transform var(--transition-fast),
+    background var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.createButton:hover {
+  background: var(--color-green-soft);
+  border-color: var(--color-green);
+}
+
+.createButton:active {
+  transform: scale(0.985);
+}
+
+.emptyState {
+  padding: 38px 24px;
+  text-align: center;
+
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-large);
+
+  background: var(--color-surface);
+}
+
+.emptyState h2 {
+  font-size: 1.05rem;
+}
+
+.emptyState p {
+  margin-top: 8px;
+  color: var(--color-text-muted);
+  font-size: 0.84rem;
+}
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

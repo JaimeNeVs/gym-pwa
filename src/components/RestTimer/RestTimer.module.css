@@ -1,0 +1,162 @@
+.container {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  animation: timerEnter 240ms ease;
+}
+
+.eyebrow {
+  margin-bottom: 9px;
+
+  color: var(--color-text-muted);
+
+  font-size: 0.68rem;
+  font-weight: 800;
+
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.title {
+  color: var(--color-text);
+
+  font-size: clamp(1.7rem, 8vw, 2.4rem);
+  font-weight: 800;
+
+  line-height: 1;
+  letter-spacing: -0.055em;
+}
+
+.timer {
+  --progress: 0%;
+
+  position: relative;
+
+  width: min(62vw, 245px);
+  aspect-ratio: 1;
+  margin-top: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: conic-gradient(
+    var(--color-text) var(--progress),
+    var(--color-surface-soft) var(--progress)
+  );
+
+  box-shadow:
+    0 0 0 1px var(--color-border),
+    0 26px 60px rgba(0, 0, 0, 0.32);
+
+  transition: background 250ms linear;
+}
+
+.timer::before {
+  content: "";
+
+  position: absolute;
+  inset: 11px;
+
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+
+  background: var(--color-background);
+}
+
+.timerContent {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timerContent strong {
+  color: var(--color-text);
+
+  font-size: clamp(2.8rem, 14vw, 4.4rem);
+  font-weight: 800;
+
+  line-height: 1;
+  letter-spacing: -0.075em;
+
+  font-variant-numeric: tabular-nums;
+}
+
+.timerContent span {
+  margin-top: 10px;
+
+  color: var(--color-text-muted);
+
+  font-size: 0.68rem;
+  font-weight: 800;
+
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.message {
+  max-width: 270px;
+  margin-top: 32px;
+
+  color: var(--color-text-muted);
+
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+.skipButton {
+  min-height: 48px;
+  margin-top: 20px;
+  padding: 0 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-round);
+
+  background: var(--color-surface);
+  color: var(--color-text-soft);
+
+  font-size: 0.76rem;
+  font-weight: 800;
+
+  transition:
+    transform var(--transition-fast),
+    background var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.skipButton:hover {
+  background: var(--color-surface-soft);
+  color: var(--color-text);
+}
+
+.skipButton:active {
+  transform: scale(0.96);
+}
+
+@keyframes timerEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

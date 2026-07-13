@@ -1,0 +1,567 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap");
+
+:root {
+  font-family: "Manrope", system-ui, sans-serif;
+  color: #f5f5f5;
+  background: #080808;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --background: #080808;
+  --surface: #111111;
+  --surface-soft: #171717;
+  --surface-hover: #1d1d1d;
+
+  --text: #f5f5f5;
+  --text-soft: #b8b8b8;
+  --text-muted: #747474;
+
+  --border: #242424;
+  --border-strong: #303030;
+
+  --white: #f5f5f5;
+  --black: #080808;
+
+  --green: #77d39b;
+  --green-soft: rgba(119, 211, 155, 0.12);
+
+  --red: #ff6b6b;
+  --red-soft: rgba(255, 107, 107, 0.12);
+
+  --gold: #e3ba62;
+  --gold-soft: rgba(227, 186, 98, 0.12);
+
+  --blue: #72a7ff;
+
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
+  --radius-xl: 30px;
+
+  --content-width: 520px;
+  --bottom-nav-height: 78px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  min-height: 100%;
+  background: var(--background);
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+input,
+textarea,
+select {
+  outline: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Estrutura principal */
+
+.app {
+  width: 100%;
+  min-height: 100vh;
+  background: var(--background);
+}
+
+.app-content {
+  width: 100%;
+  max-width: var(--content-width);
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 28px 20px calc(var(--bottom-nav-height) + 34px);
+}
+
+.page {
+  width: 100%;
+  animation: page-enter 220ms ease;
+}
+
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.page-header__content {
+  min-width: 0;
+}
+
+.eyebrow {
+  margin-bottom: 8px;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.page-title {
+  color: var(--text);
+  font-size: clamp(1.8rem, 7vw, 2.4rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.05em;
+}
+
+.page-subtitle {
+  margin-top: 10px;
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Cards */
+
+.card {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.card--interactive {
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease;
+}
+
+.card--interactive:active {
+  transform: scale(0.985);
+  background: var(--surface-soft);
+}
+
+.card-section {
+  padding: 22px;
+}
+
+.card-title {
+  color: var(--text);
+  font-size: 1.12rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.card-meta {
+  color: var(--text-muted);
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+/* Botões */
+
+.button {
+  min-height: 52px;
+  padding: 0 18px;
+  border-radius: var(--radius-md);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  font-size: 0.9rem;
+  font-weight: 800;
+  transition:
+    transform 160ms ease,
+    opacity 160ms ease,
+    background 160ms ease;
+}
+
+.button:active {
+  transform: scale(0.98);
+}
+
+.button:disabled {
+  opacity: 0.38;
+}
+
+.button--primary {
+  background: var(--white);
+  color: var(--black);
+}
+
+.button--secondary {
+  background: var(--surface-soft);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.button--ghost {
+  background: transparent;
+  color: var(--text-soft);
+  border: 1px solid var(--border);
+}
+
+.button--success {
+  background: var(--green);
+  color: var(--black);
+}
+
+.button--danger {
+  background: var(--red-soft);
+  color: var(--red);
+  border: 1px solid rgba(255, 107, 107, 0.2);
+}
+
+.button--full {
+  width: 100%;
+}
+
+.icon-button {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+
+  transition:
+    transform 160ms ease,
+    background 160ms ease;
+}
+
+.icon-button:active {
+  transform: scale(0.94);
+  background: var(--surface-hover);
+}
+
+/* Campos */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field-label {
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.field-input {
+  width: 100%;
+  min-height: 54px;
+  padding: 0 16px;
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+
+  background: var(--surface);
+  color: var(--text);
+
+  font-size: 0.95rem;
+  font-weight: 600;
+
+  transition:
+    border-color 160ms ease,
+    background 160ms ease;
+}
+
+.field-input::placeholder {
+  color: var(--text-muted);
+}
+
+.field-input:focus {
+  border-color: var(--border-strong);
+  background: var(--surface-soft);
+}
+
+/* Badges */
+
+.badge {
+  width: fit-content;
+  min-height: 28px;
+  padding: 0 10px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.badge--success {
+  background: var(--green-soft);
+  color: var(--green);
+}
+
+.badge--danger {
+  background: var(--red-soft);
+  color: var(--red);
+}
+
+.badge--gold {
+  background: var(--gold-soft);
+  color: var(--gold);
+}
+
+/* Utilitários */
+
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.stack--sm {
+  gap: 8px;
+}
+
+.stack--md {
+  gap: 14px;
+}
+
+.stack--lg {
+  gap: 20px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.row--between {
+  justify-content: space-between;
+}
+
+.row--center {
+  justify-content: center;
+}
+
+.gap-sm {
+  gap: 8px;
+}
+
+.gap-md {
+  gap: 14px;
+}
+
+.gap-lg {
+  gap: 20px;
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.text-soft {
+  color: var(--text-soft);
+}
+
+.text-green {
+  color: var(--green);
+}
+
+.text-red {
+  color: var(--red);
+}
+
+.text-gold {
+  color: var(--gold);
+}
+
+.full-width {
+  width: 100%;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+}
+
+/* Animações */
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 768px) {
+  .app-content {
+    padding-top: 42px;
+  }
+}
+.progress-dots{
+    display:flex;
+    gap:8px;
+    margin-top:18px;
+}
+
+.dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#2b2b2b;
+    transition:.25s;
+}
+
+.dot.active{
+    background:#F5F5F5;
+}
+.workout-card{
+
+    background:#111;
+
+    border:1px solid #222;
+
+    border-radius:26px;
+
+    padding:24px;
+
+    margin-bottom:18px;
+
+    transition:.25s;
+
+}
+
+.workout-card:hover{
+
+    transform:translateY(-2px);
+
+    border-color:#353535;
+
+}
+
+.workout-card h2{
+
+    font-size:28px;
+
+    line-height:1.1;
+
+    font-weight:800;
+
+}
+
+.workout-card p{
+
+    margin-top:6px;
+
+    color:#888;
+
+}
+
+.workout-footer{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-end;
+
+    margin-top:26px;
+
+}
+
+.workout-footer small{
+
+    display:block;
+
+    color:#666;
+
+    margin-bottom:4px;
+
+}
+
+.workout-footer strong{
+
+    font-size:15px;
+
+}
+
+.play-button{
+
+    width:62px;
+
+    height:62px;
+
+    border-radius:50%;
+
+    background:white;
+
+    color:black;
+
+    transition:.2s;
+
+}
+
+.play-button:hover{
+
+    transform:scale(1.06);
+
+}
