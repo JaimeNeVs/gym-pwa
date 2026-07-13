@@ -300,7 +300,7 @@ export default function Session({
       >
         {isResting ? (
           <RestTimer
-            duration={10}
+            duration={90}
             onComplete={finishRest}
           />
         ) : (
