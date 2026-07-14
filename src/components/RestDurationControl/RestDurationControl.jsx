@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import styles from "./RestDurationControl.module.css";
 
-const PRESETS = [30, 45, 60, 90, 120, 150, 180];
+const PRESETS = [60, 90, 180];
 
 export default function RestDurationControl({
   value = 90,

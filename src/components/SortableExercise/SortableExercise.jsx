@@ -149,8 +149,41 @@ export default function SortableExercise({
         onUpdate("restSeconds", value)
       }
     />
+    <div className={styles.noteField}>
+  <label htmlFor={`exercise-note-${exercise.id}`}>
+    Observações
+  </label>
+
+  <textarea
+    id={`exercise-note-${exercise.id}`}
+    value={exercise.note ?? ""}
+    placeholder="Ex.: Banco na posição 3"
+    maxLength={180}
+    rows={2}
+    onChange={(event) =>
+      onUpdate("note", event.target.value)
+    }
+  />
+</div>
   </div>
 )}
     </article>
   );
+
+  <div className={styles.noteField}>
+  <label htmlFor={`exercise-note-${exercise.id}`}>
+    Observações
+  </label>
+
+  <textarea
+    id={`exercise-note-${exercise.id}`}
+    value={exercise.note ?? ""}
+    placeholder="Ex.: Banco na posição 3"
+    maxLength={180}
+    rows={2}
+    onChange={(event) =>
+      onUpdate("note", event.target.value)
+    }
+  />
+</div>
 }

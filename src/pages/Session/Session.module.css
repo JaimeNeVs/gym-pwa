@@ -403,5 +403,20 @@
   padding-top: 38px;
   padding-bottom: 30px;
 }
+}
+.exerciseNote {
+  max-width: 360px;
+  margin: 18px auto 0;
+  padding: 11px 14px;
 
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-medium);
+
+  background: var(--color-surface);
+  color: var(--color-text-soft);
+
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: left;
 }

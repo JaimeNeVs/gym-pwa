@@ -52,6 +52,7 @@ export default function Session({
     exercise.recordReps ?? exercise.reps,
 
   restSeconds: exercise.restSeconds ?? 90,
+  note: exercise.note ?? "",
 
   completedSets: 0,
   skipped: false,
@@ -194,6 +195,7 @@ export default function Session({
     recordReps: exercise.recordReps,
 
     restSeconds: exercise.restSeconds,
+    note: exercise.note,
   };
 }
         const improvedCurrentGoal =
@@ -234,6 +236,7 @@ return {
     : exercise.recordReps,
 
   restSeconds: exercise.restSeconds,
+  note: exercise.note,
 };
       }),
     };
@@ -319,16 +322,21 @@ return {
 />
   ) : (
     <>
-      <div className={styles.exerciseHeader}>
-        <p className={styles.exerciseLabel}>
-          Exercício atual
-        </p>
+   <div className={styles.exerciseHeader}>
+  <p className={styles.exerciseLabel}>
+    Exercício atual
+  </p>
 
-        <h1 className={styles.exerciseName}>
-          {currentExercise.name}
-        </h1>
-      </div>
+  <h1 className={styles.exerciseName}>
+    {currentExercise.name}
+  </h1>
 
+  {currentExercise.note && (
+    <p className={styles.exerciseNote}>
+      {currentExercise.note}
+    </p>
+  )}
+</div>
       <ProgressDotsSession
         total={currentExercise.sets}
         completed={currentExercise.completedSets}

@@ -40,6 +40,7 @@ const emptyExercise = {
   weight: 20,
   reps: 10,
   restSeconds: 90,
+  note: "",
 };
 
 export default function Editor({
@@ -121,6 +122,7 @@ export default function Editor({
   reps: exerciseForm.reps,
 
   restSeconds: exerciseForm.restSeconds,
+  note: exerciseForm.note.trim(),
 
   recordWeight: exerciseForm.weight,
   recordReps: exerciseForm.reps,
@@ -395,6 +397,22 @@ export default function Editor({
     updateExerciseForm("restSeconds", value)
   }
 />
+<div className={styles.noteField}>
+  <label htmlFor="exercise-note">
+    Observações
+  </label>
+
+  <textarea
+    id="exercise-note"
+    value={exerciseForm.note}
+    placeholder="Ex.: Banco na posição 3"
+    maxLength={180}
+    rows={2}
+    onChange={(event) =>
+      updateExerciseForm("note", event.target.value)
+    }
+  />
+</div>
 
             <button
               type="button"
