@@ -24,8 +24,9 @@ import {
 
 import NumberControl from "../../components/NumberControl/NumberControl";
 import SortableExercise from "../../components/SortableExercise/SortableExercise";
-
+import RestDurationControl from "../../components/RestDurationControl/RestDurationControl";
 import styles from "./Editor.module.css";
+
 
 function createId(prefix) {
   return `${prefix}-${Date.now()}-${Math.random()
@@ -38,6 +39,7 @@ const emptyExercise = {
   sets: 3,
   weight: 20,
   reps: 10,
+  restSeconds: 90,
 };
 
 export default function Editor({
@@ -112,15 +114,17 @@ export default function Editor({
     if (!name) return;
 
     const newExercise = {
-      id: createId("exercise"),
-      name,
-      sets: exerciseForm.sets,
-      weight: exerciseForm.weight,
-      reps: exerciseForm.reps,
+  id: createId("exercise"),
+  name,
+  sets: exerciseForm.sets,
+  weight: exerciseForm.weight,
+  reps: exerciseForm.reps,
 
-      recordWeight: exerciseForm.weight,
-      recordReps: exerciseForm.reps,
-    };
+  restSeconds: exerciseForm.restSeconds,
+
+  recordWeight: exerciseForm.weight,
+  recordReps: exerciseForm.reps,
+};
 
     setDraft((current) => ({
       ...current,
@@ -353,37 +357,44 @@ export default function Editor({
             </div>
 
             <div className={styles.controlsGrid}>
-              <NumberControl
-                label="Séries"
-                value={exerciseForm.sets}
-                min={1}
-                step={1}
-                onChange={(value) =>
-                  updateExerciseForm("sets", value)
-                }
-              />
+  <NumberControl
+    label="Séries"
+    value={exerciseForm.sets}
+    min={1}
+    step={1}
+    onChange={(value) =>
+      updateExerciseForm("sets", value)
+    }
+  />
 
-              <NumberControl
-                label="Carga"
-                value={exerciseForm.weight}
-                min={0}
-                step={2.5}
-                unit="kg"
-                onChange={(value) =>
-                  updateExerciseForm("weight", value)
-                }
-              />
+  <NumberControl
+    label="Carga"
+    value={exerciseForm.weight}
+    min={0}
+    step={2.5}
+    unit="kg"
+    onChange={(value) =>
+      updateExerciseForm("weight", value)
+    }
+  />
 
-              <NumberControl
-                label="Repetições"
-                value={exerciseForm.reps}
-                min={1}
-                step={1}
-                onChange={(value) =>
-                  updateExerciseForm("reps", value)
-                }
-              />
-            </div>
+  <NumberControl
+    label="Repetições"
+    value={exerciseForm.reps}
+    min={1}
+    step={1}
+    onChange={(value) =>
+      updateExerciseForm("reps", value)
+    }
+  />
+</div>
+
+<RestDurationControl
+  value={exerciseForm.restSeconds}
+  onChange={(value) =>
+    updateExerciseForm("restSeconds", value)
+  }
+/>
 
             <button
               type="button"

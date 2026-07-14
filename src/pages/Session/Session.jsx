@@ -40,20 +40,22 @@ export default function Session({
 
   const [sessionExercises, setSessionExercises] = useState(() =>
     workout.exercises.map((exercise) => ({
-      ...exercise,
+  ...exercise,
 
-      originalWeight: exercise.weight,
-      originalReps: exercise.reps,
+  originalWeight: exercise.weight,
+  originalReps: exercise.reps,
 
-      recordWeight:
-        exercise.recordWeight ?? exercise.weight,
+  recordWeight:
+    exercise.recordWeight ?? exercise.weight,
 
-      recordReps:
-        exercise.recordReps ?? exercise.reps,
+  recordReps:
+    exercise.recordReps ?? exercise.reps,
 
-      completedSets: 0,
-      skipped: false,
-    }))
+  restSeconds: exercise.restSeconds ?? 90,
+
+  completedSets: 0,
+  skipped: false,
+}))
   );
 
   const currentExercise =
@@ -180,19 +182,20 @@ export default function Session({
           exercise.completedSets > 0;
 
         if (!wasPerformed) {
-          return {
-            id: exercise.id,
-            name: exercise.name,
-            sets: exercise.sets,
+  return {
+    id: exercise.id,
+    name: exercise.name,
+    sets: exercise.sets,
 
-            weight: exercise.originalWeight,
-            reps: exercise.originalReps,
+    weight: exercise.originalWeight,
+    reps: exercise.originalReps,
 
-            recordWeight: exercise.recordWeight,
-            recordReps: exercise.recordReps,
-          };
-        }
+    recordWeight: exercise.recordWeight,
+    recordReps: exercise.recordReps,
 
+    restSeconds: exercise.restSeconds,
+  };
+}
         const improvedCurrentGoal =
           isBetterPerformance(
             exercise.weight,
@@ -209,27 +212,29 @@ export default function Session({
             exercise.recordReps
           );
 
-        return {
-          id: exercise.id,
-          name: exercise.name,
-          sets: exercise.sets,
+return {
+  id: exercise.id,
+  name: exercise.name,
+  sets: exercise.sets,
 
-          weight: improvedCurrentGoal
-            ? exercise.weight
-            : exercise.originalWeight,
+  weight: improvedCurrentGoal
+    ? exercise.weight
+    : exercise.originalWeight,
 
-          reps: improvedCurrentGoal
-            ? exercise.reps
-            : exercise.originalReps,
+  reps: improvedCurrentGoal
+    ? exercise.reps
+    : exercise.originalReps,
 
-          recordWeight: achievedNewRecord
-            ? exercise.weight
-            : exercise.recordWeight,
+  recordWeight: achievedNewRecord
+    ? exercise.weight
+    : exercise.recordWeight,
 
-          recordReps: achievedNewRecord
-            ? exercise.reps
-            : exercise.recordReps,
-        };
+  recordReps: achievedNewRecord
+    ? exercise.reps
+    : exercise.recordReps,
+
+  restSeconds: exercise.restSeconds,
+};
       }),
     };
 
@@ -306,9 +311,12 @@ export default function Session({
 >
   {isResting ? (
     <RestTimer
-      duration={90}
-      onComplete={finishRest}
-    />
+  duration={currentExercise.restSeconds ?? 90}
+  onComplete={finishRest}
+  message={`Próxima: série ${
+    currentExercise.completedSets + 1
+  } de ${currentExercise.sets}`}
+/>
   ) : (
     <>
       <div className={styles.exerciseHeader}>

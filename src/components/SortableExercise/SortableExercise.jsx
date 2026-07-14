@@ -7,7 +7,7 @@ import {
 
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-
+import RestDurationControl from "../RestDurationControl/RestDurationControl";
 import NumberControl from "../NumberControl/NumberControl";
 import styles from "./SortableExercise.module.css";
 
@@ -92,52 +92,65 @@ export default function SortableExercise({
         </button>
       </div>
 
-      {expanded && (
-        <div className={styles.editor}>
-          <div className={styles.field}>
-            <label htmlFor={`exercise-name-${exercise.id}`}>
-              Nome do exercício
-            </label>
+{expanded && (
+  <div className={styles.editor}>
+    <div className={styles.field}>
+      <label htmlFor={`exercise-name-${exercise.id}`}>
+        Nome do exercício
+      </label>
 
-            <input
-              id={`exercise-name-${exercise.id}`}
-              type="text"
-              value={exercise.name}
-              maxLength={50}
-              onChange={(event) =>
-                onUpdate("name", event.target.value)
-              }
-            />
-          </div>
+      <input
+        id={`exercise-name-${exercise.id}`}
+        type="text"
+        value={exercise.name}
+        maxLength={50}
+        onChange={(event) =>
+          onUpdate("name", event.target.value)
+        }
+      />
+    </div>
 
-          <div className={styles.controlsGrid}>
-            <NumberControl
-              label="Séries"
-              value={exercise.sets}
-              min={1}
-              step={1}
-              onChange={(value) => onUpdate("sets", value)}
-            />
+    <div className={styles.controlsGrid}>
+      <NumberControl
+        label="Séries"
+        value={exercise.sets}
+        min={1}
+        step={1}
+        onChange={(value) =>
+          onUpdate("sets", value)
+        }
+      />
 
-            <NumberControl
-              label="Carga"
-              value={exercise.weight}
-              min={0}
-              step={2.5}
-              unit="kg"
-              onChange={(value) => onUpdate("weight", value)}
-            />
+      <NumberControl
+        label="Carga"
+        value={exercise.weight}
+        min={0}
+        step={2.5}
+        unit="kg"
+        onChange={(value) =>
+          onUpdate("weight", value)
+        }
+      />
 
-            <NumberControl
-              label="Repetições"
-              value={exercise.reps}
-              min={1}
-              step={1}
-              onChange={(value) => onUpdate("reps", value)}
-            />
-          </div>
-        </div>
-      )}
+      <NumberControl
+        label="Repetições"
+        value={exercise.reps}
+        min={1}
+        step={1}
+        onChange={(value) =>
+          onUpdate("reps", value)
+        }
+      />
+    </div>
+
+    <RestDurationControl
+      value={exercise.restSeconds ?? 90}
+      onChange={(value) =>
+        onUpdate("restSeconds", value)
+      }
+    />
+  </div>
+)}
     </article>
   );
 }

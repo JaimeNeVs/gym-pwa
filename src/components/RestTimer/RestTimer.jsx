@@ -5,6 +5,7 @@ import styles from "./RestTimer.module.css";
 
 export default function RestTimer({
   duration = 90,
+  message = "Prepare-se para a próxima série.",
   onComplete,
 }) {
   const [secondsLeft, setSecondsLeft] = useState(duration);
@@ -79,7 +80,7 @@ export default function RestTimer({
       </div>
 
       <p className={styles.message}>
-        A próxima série começa quando o tempo terminar.
+        {message}
       </p>
 
       <button
