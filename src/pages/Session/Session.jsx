@@ -1,4 +1,10 @@
-import { useMemo, useState } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import usePressHold from "../../hooks/usePressHold";
 import {
   ArrowLeft,
   Check,
@@ -293,87 +299,93 @@ export default function Session({
         </div>
       </header>
 
-      <main
-        className={`${styles.content} ${
-          isResting ? styles.restingContent : ""
-        }`}
-      >
-        {isResting ? (
-          <RestTimer
-            duration={90}
-            onComplete={finishRest}
-          />
-        ) : (
-          <>
-            <div className={styles.exerciseHeader}>
-              <p className={styles.exerciseLabel}>
-                Exercício atual
-              </p>
+     <main
+  className={`${styles.content} ${
+    isResting ? styles.restingContent : ""
+  }`}
+>
+  {isResting ? (
+    <RestTimer
+      duration={90}
+      onComplete={finishRest}
+    />
+  ) : (
+    <>
+      <div className={styles.exerciseHeader}>
+        <p className={styles.exerciseLabel}>
+          Exercício atual
+        </p>
 
-              <h1 className={styles.exerciseName}>
-                {currentExercise.name}
-              </h1>
-            </div>
+        <h1 className={styles.exerciseName}>
+          {currentExercise.name}
+        </h1>
+      </div>
 
-            <ProgressDotsSession
-              total={currentExercise.sets}
-              completed={currentExercise.completedSets}
-            />
+      <ProgressDotsSession
+        total={currentExercise.sets}
+        completed={currentExercise.completedSets}
+      />
 
-            <p className={styles.setText}>
-              Série{" "}
-              {Math.min(
-                currentExercise.completedSets + 1,
-                currentExercise.sets
-              )}{" "}
-              de {currentExercise.sets}
-            </p>
+      <p className={styles.setText}>
+        Série{" "}
+        {Math.min(
+          currentExercise.completedSets + 1,
+          currentExercise.sets
+        )}{" "}
+        de {currentExercise.sets}
+      </p>
 
-            <div className={styles.values}>
-              <ValueControl
-                label="Carga"
-                value={currentExercise.weight}
-                unit="kg"
-                onDecrease={() => changeWeight(-2.5)}
-                onIncrease={() => changeWeight(2.5)}
-              />
+      <div className={styles.values}>
+        <ValueControl
+          label="Carga"
+          value={currentExercise.weight}
+          unit="kg"
+          onDecrease={() => changeWeight(-2.5)}
+          onIncrease={() => changeWeight(2.5)}
+          onDirectChange={(value) =>
+            updateCurrentExercise("weight", value)
+          }
+        />
 
-              <ValueControl
-                label="Repetições"
-                value={currentExercise.reps}
-                unit="reps"
-                onDecrease={() => changeReps(-1)}
-                onIncrease={() => changeReps(1)}
-              />
-            </div>
+        <ValueControl
+          label="Repetições"
+          value={currentExercise.reps}
+          unit="reps"
+          onDecrease={() => changeReps(-1)}
+          onIncrease={() => changeReps(1)}
+          onDirectChange={(value) =>
+            updateCurrentExercise("reps", value)
+          }
+        />
+      </div>
 
-            {isPR && (
-              <div className={styles.prBadge}>
-                <Trophy size={17} strokeWidth={1.9} />
-                <span>Novo recorde</span>
-              </div>
-            )}
+      {isPR && (
+        <div className={styles.prBadge}>
+          <Trophy size={17} strokeWidth={1.9} />
+          <span>Novo recorde</span>
+        </div>
+      )}
 
-            <div className={styles.reference}>
-              <span>Meta atual</span>
+      <div className={styles.reference}>
+        <span>Meta atual</span>
 
-              <strong>
-                {currentExercise.originalWeight} kg ·{" "}
-                {currentExercise.originalReps} reps
-              </strong>
-            </div>
+        <strong>
+          {currentExercise.originalWeight} kg ·{" "}
+          {currentExercise.originalReps} reps
+        </strong>
+      </div>
 
-            <div className={styles.reference}>
-              <span>Recorde</span>
+      <div className={styles.reference}>
+        <span>Recorde</span>
 
-              <strong>
-                {currentExercise.recordWeight} kg ·{" "}
-                {currentExercise.recordReps} reps
-              </strong>
-            </div>
-          </>
-        )}
-      </main>
+        <strong>
+          {currentExercise.recordWeight} kg ·{" "}
+          {currentExercise.recordReps} reps
+        </strong>
+      </div>
+    </>
+  )}
+</main>
 
       {!isResting && (
         <footer className={styles.footer}>
@@ -410,10 +422,70 @@ function ValueControl({
   unit,
   onDecrease,
   onIncrease,
+  onDirectChange,
 }) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [inputValue, setInputValue] = useState(String(value));
+
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (!isEditing) {
+      setInputValue(String(value));
+    }
+  }, [value, isEditing]);
+
+  useEffect(() => {
+    if (!isEditing) return;
+
+    inputRef.current?.focus();
+    inputRef.current?.select();
+  }, [isEditing]);
+
+  const decreasePress = usePressHold(onDecrease);
+  const increasePress = usePressHold(onIncrease);
+
   const formattedValue = Number.isInteger(value)
     ? value
     : value.toFixed(1);
+
+  function confirmInput() {
+    const normalizedText = inputValue
+      .replace(",", ".")
+      .trim();
+
+    const parsedValue = Number(normalizedText);
+
+    if (
+      normalizedText === "" ||
+      Number.isNaN(parsedValue)
+    ) {
+      setInputValue(String(value));
+      setIsEditing(false);
+      return;
+    }
+
+    onDirectChange(
+      Math.max(
+        0,
+        Math.round(parsedValue * 10) / 10
+      )
+    );
+
+    setIsEditing(false);
+  }
+
+  function handleKeyDown(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      confirmInput();
+    }
+
+    if (event.key === "Escape") {
+      setInputValue(String(value));
+      setIsEditing(false);
+    }
+  }
 
   return (
     <div className={styles.valueBlock}>
@@ -424,21 +496,42 @@ function ValueControl({
       <div className={styles.valueControl}>
         <button
           type="button"
-          onClick={onDecrease}
           aria-label={`Diminuir ${label}`}
+          {...decreasePress}
         >
           <Minus size={21} strokeWidth={1.8} />
         </button>
 
-        <div className={styles.value}>
-          <strong>{formattedValue}</strong>
-          <span>{unit}</span>
-        </div>
+        {isEditing ? (
+          <input
+            ref={inputRef}
+            className={styles.directValueInput}
+            type="text"
+            inputMode="decimal"
+            value={inputValue}
+            aria-label={`Informar ${label}`}
+            onChange={(event) =>
+              setInputValue(event.target.value)
+            }
+            onBlur={confirmInput}
+            onKeyDown={handleKeyDown}
+          />
+        ) : (
+          <button
+            type="button"
+            className={styles.value}
+            onClick={() => setIsEditing(true)}
+            aria-label={`Editar ${label}`}
+          >
+            <strong>{formattedValue}</strong>
+            <span>{unit}</span>
+          </button>
+        )}
 
         <button
           type="button"
-          onClick={onIncrease}
           aria-label={`Aumentar ${label}`}
+          {...increasePress}
         >
           <Plus size={21} strokeWidth={1.8} />
         </button>

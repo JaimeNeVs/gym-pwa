@@ -169,6 +169,10 @@
 
   border-radius: 50%;
 
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+
   background: var(--color-surface-soft);
   color: var(--color-text-muted);
 
@@ -176,6 +180,53 @@
     transform var(--transition-fast),
     background var(--transition-fast),
     color var(--transition-fast);
+}
+
+.valueControl .value {
+  width: 100%;
+  height: auto;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: var(--radius-medium);
+
+  background: transparent;
+  color: inherit;
+
+  touch-action: manipulation;
+}
+
+.valueControl .value:hover {
+  background: transparent;
+}
+
+.valueControl .value:active {
+  transform: scale(0.97);
+}
+
+.directValueInput {
+  width: 100%;
+  min-width: 0;
+  height: 76px;
+  padding: 0 6px;
+
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-medium);
+
+  background: var(--color-background);
+  color: var(--color-text);
+
+  font-size: clamp(1.8rem, 8vw, 2.7rem);
+  font-weight: 800;
+
+  letter-spacing: -0.05em;
+  text-align: center;
+
+  font-variant-numeric: tabular-nums;
 }
 
 .valueControl button:hover {
