@@ -13,7 +13,7 @@ import {
   loadWorkouts,
   saveWorkouts,
   setAccessMode,
-} from "../Services/localStorageService";
+} from "./services/localStorageService";
 
 export default function App() {
   const [accessMode, setCurrentAccessMode] = useState(() =>
