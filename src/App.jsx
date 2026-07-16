@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import BottomNav from "./components/BottomNav/BottomNav";
 import { initialWorkouts } from "./data/seed";
@@ -6,15 +6,53 @@ import Editor from "./pages/Editor/Editor";
 import Finished from "./pages/Finished/Finished";
 import Home from "./pages/Home/Home";
 import Session from "./pages/Session/Session";
+import Welcome from "./pages/Welcome/Welcome";
+
+import {
+  getAccessMode,
+  loadWorkouts,
+  saveWorkouts,
+  setAccessMode,
+} from "./services/localStorageService";
 
 export default function App() {
-  const [workouts, setWorkouts] = useState(initialWorkouts);
-  const [activeTab, setActiveTab] = useState("workouts");
+  const [accessMode, setCurrentAccessMode] = useState(() =>
+    getAccessMode()
+  );
 
+  const [workouts, setWorkouts] = useState(() =>
+    loadWorkouts(initialWorkouts)
+  );
+
+  const [activeTab, setActiveTab] = useState("workouts");
   const [currentPage, setCurrentPage] = useState("home");
   const [editingWorkout, setEditingWorkout] = useState(null);
   const [activeWorkout, setActiveWorkout] = useState(null);
   const [finishedSummary, setFinishedSummary] = useState(null);
+
+  /*
+   * Salva automaticamente qualquer alteração nos treinos
+   * quando o usuário estiver no modo convidado.
+   */
+  useEffect(() => {
+    if (accessMode !== "guest") return;
+
+    saveWorkouts(workouts);
+  }, [workouts, accessMode]);
+
+  function handleContinueAsGuest() {
+    setAccessMode("guest");
+    setCurrentAccessMode("guest");
+  }
+
+  function handleCloudOption(option) {
+    const optionName =
+      option === "google" ? "Google" : "e-mail";
+
+    window.alert(
+      `A autenticação com ${optionName} será conectada ao Supabase na próxima etapa.`
+    );
+  }
 
   function handleStartWorkout(workout) {
     setActiveWorkout(workout);
@@ -100,8 +138,26 @@ export default function App() {
   function returnHome() {
     setCurrentPage("home");
     setActiveTab("workouts");
+    setEditingWorkout(null);
     setActiveWorkout(null);
     setFinishedSummary(null);
+  }
+
+  /*
+   * Sem modo de acesso escolhido:
+   * mostra a tela inicial.
+   */
+  if (!accessMode) {
+    return (
+      <main className="app">
+        <div className="appContent">
+          <Welcome
+            onContinueAsGuest={handleContinueAsGuest}
+            onCloudOption={handleCloudOption}
+          />
+        </div>
+      </main>
+    );
   }
 
   const showBottomNavigation =

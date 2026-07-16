@@ -1,0 +1,143 @@
+.page {
+  width: 100%;
+  min-height: calc(100vh - 70px);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  animation: pageEnter 260ms ease;
+}
+
+.hero {
+  margin-bottom: 42px;
+}
+
+.eyebrow {
+  margin-bottom: 14px;
+
+  color: var(--color-text-muted);
+
+  font-size: 0.68rem;
+  font-weight: 800;
+
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.title {
+  color: var(--color-text);
+
+  font-size: clamp(2.8rem, 14vw, 4.6rem);
+  font-weight: 800;
+
+  line-height: 0.9;
+  letter-spacing: -0.075em;
+}
+
+.subtitle {
+  max-width: 350px;
+  margin-top: 24px;
+
+  color: var(--color-text-muted);
+
+  font-size: 0.84rem;
+  line-height: 1.6;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.primaryButton,
+.secondaryButton,
+.guestButton {
+  width: 100%;
+  min-height: 60px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  border-radius: var(--radius-medium);
+
+  font-size: 0.84rem;
+  font-weight: 800;
+
+  transition:
+    transform var(--transition-fast),
+    background var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.primaryButton {
+  background: var(--color-text);
+  color: var(--color-background);
+}
+
+.secondaryButton {
+  border: 1px solid var(--color-border);
+
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.primaryButton:active,
+.secondaryButton:active,
+.guestButton:active {
+  transform: scale(0.985);
+}
+
+.divider {
+  margin: 24px 0;
+
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 12px;
+}
+
+.divider span {
+  height: 1px;
+  background: var(--color-border);
+}
+
+.divider p {
+  color: var(--color-text-muted);
+
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.guestButton {
+  border: 1px solid var(--color-border);
+
+  background: transparent;
+  color: var(--color-text-soft);
+}
+
+.guestMessage {
+  max-width: 320px;
+  margin: 12px auto 0;
+
+  color: var(--color-text-muted);
+
+  font-size: 0.67rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
